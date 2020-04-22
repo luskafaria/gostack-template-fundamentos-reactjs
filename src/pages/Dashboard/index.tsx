@@ -63,10 +63,7 @@ const Dashboard: React.FC = () => {
               <img src={income} alt="Income" />
             </header>
             <h1 data-testid="balance-income">
-              {new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-              }).format(Number(balance.income))}
+              {formatValue(Number(balance.income))}
             </h1>
           </Card>
           <Card>
@@ -75,10 +72,7 @@ const Dashboard: React.FC = () => {
               <img src={outcome} alt="Outcome" />
             </header>
             <h1 data-testid="balance-outcome">
-              {new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-              }).format(Number(balance.outcome))}
+              {formatValue(Number(balance.outcome))}
             </h1>
           </Card>
           <Card total>
@@ -87,10 +81,7 @@ const Dashboard: React.FC = () => {
               <img src={total} alt="Total" />
             </header>
             <h1 data-testid="balance-total">
-              {new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-              }).format(Number(balance.total))}
+              {formatValue(Number(balance.total))}
             </h1>
           </Card>
         </CardContainer>
@@ -111,11 +102,9 @@ const Dashboard: React.FC = () => {
                 <tr key={transaction.id}>
                   <td className="title">{transaction.title}</td>
                   <td className={transaction.type}>
-                    {transaction.type === 'outcome' ? '- ' : null}
-                    {new Intl.NumberFormat('pt-BR', {
-                      style: 'currency',
-                      currency: 'BRL',
-                    }).format(Number(transaction.value))}
+                    {transaction.type === 'outcome'
+                      ? formatValue(0 - transaction.value)
+                      : formatValue(transaction.value)}
                   </td>
                   <td>{transaction.category.title}</td>
                   <td>
