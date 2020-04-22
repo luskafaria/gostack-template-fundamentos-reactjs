@@ -66,7 +66,7 @@ const Dashboard: React.FC = () => {
               {new Intl.NumberFormat('pt-BR', {
                 style: 'currency',
                 currency: 'BRL',
-              }).format(parseFloat(balance.income))}
+              }).format(Number(balance.income))}
             </h1>
           </Card>
           <Card>
@@ -78,7 +78,7 @@ const Dashboard: React.FC = () => {
               {new Intl.NumberFormat('pt-BR', {
                 style: 'currency',
                 currency: 'BRL',
-              }).format(parseFloat(balance.outcome))}
+              }).format(Number(balance.outcome))}
             </h1>
           </Card>
           <Card total>
@@ -90,7 +90,7 @@ const Dashboard: React.FC = () => {
               {new Intl.NumberFormat('pt-BR', {
                 style: 'currency',
                 currency: 'BRL',
-              }).format(parseFloat(balance.total))}
+              }).format(Number(balance.total))}
             </h1>
           </Card>
         </CardContainer>
@@ -115,7 +115,7 @@ const Dashboard: React.FC = () => {
                     {new Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
-                    }).format(parseFloat(transaction.value.toString()))}
+                    }).format(Number(transaction.value.toString()))}
                   </td>
                   <td>{transaction.category.title}</td>
                   <td>
