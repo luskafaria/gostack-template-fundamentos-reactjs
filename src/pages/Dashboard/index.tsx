@@ -115,7 +115,7 @@ const Dashboard: React.FC = () => {
                     {new Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
-                    }).format(Number(transaction.value.toString()))}
+                    }).format(Number(transaction.value))}
                   </td>
                   <td>{transaction.category.title}</td>
                   <td>
