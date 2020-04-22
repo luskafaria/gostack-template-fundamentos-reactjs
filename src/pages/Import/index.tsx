@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import filesize from 'filesize';
+import { uniqueId } from 'lodash';
 
 import Header from '../../components/Header';
 import FileList from '../../components/FileList';
@@ -20,22 +21,38 @@ interface FileProps {
 
 const Import: React.FC = () => {
   const [uploadedFiles, setUploadedFiles] = useState<FileProps[]>([]);
-  const history = useHistory();
+  const [uploadStatus, setUploadStatus] = useState('');
 
   async function handleUpload(): Promise<void> {
-    // const data = new FormData();
+    const data = new FormData();
 
-    // TODO
+    uploadedFiles.map(uploadedFile =>
+      data.append('file', uploadedFile.file, uploadedFile.name),
+    );
 
     try {
-      // await api.post('/transactions/import', data);
+      await api.post('/transactions/import', data);
+
+      setUploadedFiles([]);
+      setUploadStatus('Arquivos enviados');
     } catch (err) {
-      // console.log(err.response.error);
+      console.log(err.response.error);
+      setUploadedFiles([]);
+      setUploadStatus('A importação falhou');
     }
   }
 
   function submitFile(files: File[]): void {
-    // TODO
+    setUploadStatus('');
+
+    const uploadedFilesList = files.map(file => ({
+      file,
+      id: uniqueId(),
+      name: file.name,
+      readableSize: filesize(file.size),
+    }));
+
+    setUploadedFiles(uploadedFilesList);
   }
 
   return (
@@ -46,7 +63,7 @@ const Import: React.FC = () => {
         <ImportFileContainer>
           <Upload onUpload={submitFile} />
           {!!uploadedFiles.length && <FileList files={uploadedFiles} />}
-
+          {!!uploadStatus && <span>{uploadStatus}</span>}
           <Footer>
             <p>
               <img src={alert} alt="Alert" />
